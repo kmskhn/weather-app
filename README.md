@@ -14,23 +14,67 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Weather App
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+A simple weather application built with Next.js that fetches and displays weather data for different cities. Users can view current weather, a 5-day forecast, and favorite cities for quick access.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Setup and Installation
 
-## Learn More
+### Prerequisites
 
-To learn more about Next.js, take a look at the following resources:
+- [Node.js](https://nodejs.org/) (version 14.x or higher)
+- [npm](https://www.npmjs.com/) (version 6.x or higher)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Clone the repository:**
 
-## Deploy on Vercel
+   ```bash
+   git clone <repository_url>
+   cd weather-app
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. **Install dependencies:**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   npm install
+   ```
+
+3. **Environment Variables:**
+
+   Create a `.env` file in the root directory with the following content:
+
+   ```NEXT_PUBLIC_WEATHER_API_KEY=your_api_key_here```
+
+   Replace `your_api_key_here` with your actual API key from the weather service provider (e.g., OpenWeatherMap).
+
+4. **Run the application:**
+
+   ```bash
+   npm run dev
+   ```
+
+   The app will be available at [http://localhost:3000](http://localhost:3000).
+
+## Project Structure
+
+- **`/app`**: Contains the main application logic.
+- **`/components`**: Reusable React components used throughout the application.
+  - `CityDetail.js`: Displays detailed weather information for a selected city.
+  - `CitySearch.js`: Search component for finding cities.
+  - `CityWeatherCard.js`: A card component showing summarized weather data.
+  - `Dashboard.js`: Main dashboard displaying a list of weather cards.
+  - `Footer.js`: Footer component.
+  - `Header.js`: Header component.
+  - `WeatherDetails.js`: Component for showing additional weather details.
+- **`/lib`**: Contains utility modules, such as `weatherApi.js`, for interacting with the weather API.
+
+## API Interaction
+
+This app interacts with the weather API to fetch weather data based on user input. 
+
+- **`weatherApi.js`**: The module in the `/lib` directory that makes requests to the weather API using the API key stored in `.env`.
+  - **Functions**: This file includes functions to fetch current weather data and the 5-day forecast for a given city.
+  - **Error Handling**: The app handles errors in case of failed API requests and displays appropriate messages to the user.
+  
+The weather data, including temperature, humidity, wind speed, and forecast, is fetched from the API and displayed across different components in a clean, responsive UI.
