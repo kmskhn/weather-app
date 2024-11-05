@@ -30,26 +30,29 @@ export default function CityDetail({ data }) {
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
-    const savedFavorites =
-      JSON.parse(localStorage.getItem("favoriteCities")) || [];
-    setIsFavorite(savedFavorites.includes(data.city.name));
+    if (typeof window !== "undefined") {
+      const savedFavorites =
+        JSON.parse(localStorage.getItem("favoriteCities")) || [];
+      setIsFavorite(savedFavorites.includes(data.city.name));
+    }
   }, [data.city.name]);
 
   const toggleFavorite = () => {
-    const savedFavorites =
-      JSON.parse(localStorage.getItem("favoriteCities")) || [];
-    let updatedFavorites = isFavorite
-      ? savedFavorites.filter((city) => city !== data.city.name)
-      : [...savedFavorites, data.city.name];
+    if (typeof window !== "undefined") {
+      const savedFavorites =
+        JSON.parse(localStorage.getItem("favoriteCities")) || [];
+      const updatedFavorites = isFavorite
+        ? savedFavorites.filter((city) => city !== data.city.name)
+        : [...savedFavorites, data.city.name];
 
-    localStorage.setItem("favoriteCities", JSON.stringify(updatedFavorites));
-    setIsFavorite(!isFavorite);
+      localStorage.setItem("favoriteCities", JSON.stringify(updatedFavorites));
+      setIsFavorite(!isFavorite);
+    }
   };
 
   const weatherCondition = data.list[0].weather[0].main;
   const cardBackgroundColor =
     weatherColors[weatherCondition] || "bg-gray-300/80 dark:bg-gray-600/80";
-
   const uniqueDateForecasts = getUniqueDates(data.list);
 
   return (
@@ -60,7 +63,6 @@ export default function CityDetail({ data }) {
         <div className="absolute top-4 right-4 text-4xl font-extrabold tracking-wide text-white drop-shadow-lg">
           {data.city.name}
         </div>
-
         <div
           className="absolute top-4 left-4 cursor-pointer"
           onClick={toggleFavorite}
@@ -133,19 +135,21 @@ export default function CityDetail({ data }) {
                 <p className="font-semibold mt-2">{item.main.temp} °C</p>
                 <p className="text-sm capitalize">{item.weather[0].main}</p>
                 <div className="text-left">
-                  
-                 
                   <p className="text-xs flex justify-between">
-                    <strong>Feels Like:</strong> <span className="ml-2">{item.main.feels_like} °C</span>
+                    <strong>Feels Like:</strong>
+                    <span className="ml-2">{item.main.feels_like} °C</span>
                   </p>
                   <p className="text-xs flex justify-between">
-                    <strong>Max:</strong> <span className="ml-2">{item.main.temp_max} °C</span>
+                    <strong>Max:</strong>
+                    <span className="ml-2">{item.main.temp_max} °C</span>
                   </p>
                   <p className="text-xs flex justify-between">
-                    <strong>Min:</strong> <span className="ml-2">{item.main.temp_min} °C</span>
+                    <strong>Min:</strong>
+                    <span className="ml-2">{item.main.temp_min} °C</span>
                   </p>
                   <p className="text-xs flex justify-between">
-                    <strong>Humidity:</strong> <span className="ml-2">{item.main.humidity} %</span>
+                    <strong>Humidity:</strong>
+                    <span className="ml-2">{item.main.humidity} %</span>
                   </p>
                 </div>
               </div>

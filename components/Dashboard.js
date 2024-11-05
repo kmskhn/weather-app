@@ -5,17 +5,19 @@ import CityWeatherCard from '@/components/CityWeatherCard';
 import CitySearch from '@/components/CitySearch';
 
 export default function Dashboard({ initialWeatherData }) {
-  const [favorites, setFavorites] = useState(() => {
-    return JSON.parse(localStorage.getItem('favoriteCities')) || [];
-  });
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    const savedFavorites = JSON.parse(localStorage.getItem('favoriteCities')) || [];
-    setFavorites(savedFavorites);
+    if (typeof window !== 'undefined') {
+      const savedFavorites = JSON.parse(localStorage.getItem('favoriteCities')) || [];
+      setFavorites(savedFavorites);
+    }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('favoriteCities', JSON.stringify(favorites));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('favoriteCities', JSON.stringify(favorites));
+    }
   }, [favorites]);
 
   const toggleFavorite = (cityName) => {
