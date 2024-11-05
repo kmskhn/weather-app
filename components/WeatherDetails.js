@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function WeatherDetails({ data }) {
     const { name, main, weather, wind } = data;
   
@@ -9,7 +11,7 @@ export default function WeatherDetails({ data }) {
           <p className="text-md">Weather: {weather[0].description}</p>
           <p className="text-md">Wind Speed: {wind.speed} m/s</p>
           <p className="text-md">Humidity: {main.humidity} %</p>
-          <img
+          <Image
             src={`http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`}
             alt={weather[0].description}
             className="w-16 h-16 mt-2"
